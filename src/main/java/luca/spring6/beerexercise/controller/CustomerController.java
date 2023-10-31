@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@Controller
+@RestController
 @RequestMapping("/api/v1/customer")
 public class CustomerController {
 
@@ -43,6 +43,12 @@ public class CustomerController {
     public ResponseEntity<Customer> updateCustomer (@PathVariable UUID customerId, @RequestBody Customer customer) {
 
         customerService.updateCustomer(customerId, customer);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("{customerId}")
+    public ResponseEntity<Customer> deleteCustomer (@PathVariable UUID customerId) {
+        customerService.deleteCustomer(customerId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

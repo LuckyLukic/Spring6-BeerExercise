@@ -1,9 +1,13 @@
 package luca.spring6.beerexercise.service;
 
+import lombok.extern.slf4j.Slf4j;
 import luca.spring6.beerexercise.model.Customer;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@Slf4j
+@Service
 public class CustomerServiceImpl implements CustomerService {
 
     private Map<UUID, Customer> customerMap;
@@ -62,5 +66,11 @@ public class CustomerServiceImpl implements CustomerService {
         existing.setAddress(customer.getAddress());
 
         customerMap.put(existing.getCustomerId(), existing);
+    }
+
+    @Override
+    public void deleteCustomer(UUID customerId) {
+
+        customerMap.remove(customerId);
     }
 }

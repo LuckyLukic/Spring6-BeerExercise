@@ -1,5 +1,6 @@
 package luca.spring6.beerexercise.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import luca.spring6.beerexercise.model.Beer;
 import luca.spring6.beerexercise.service.BeerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +14,15 @@ import org.springframework.web.servlet.function.ServerRequest;
 import java.util.List;
 import java.util.UUID;
 
-@Controller
+@Slf4j
+@RestController
 @RequestMapping("/api/v1/beer")
 public class BeerController {
 
     @Autowired
-    BeerService beerService;
+     BeerService beerService;
 
-    @GetMapping("{beerId")
+    @GetMapping("{beerId}")
     public Beer getBeerById(@PathVariable UUID id){
 
         return beerService.getBeerById(id);
@@ -28,6 +30,7 @@ public class BeerController {
 
     @GetMapping("")
     public List<Beer> getBeers() {
+        log.info("Retrieving all beers");
 
         return beerService.getBeers();
     }
@@ -50,6 +53,15 @@ public class BeerController {
        beerService.updateBeer(beerId, beer);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("{beerId}")
+    public ResponseEntity<Beer> deleteBeer (@PathVariable UUID beerId){
+
+        beerService.deleteBeer(beerId);
+
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
     }
 
 }

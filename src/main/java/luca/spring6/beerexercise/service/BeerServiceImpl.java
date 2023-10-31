@@ -58,6 +58,7 @@ public class BeerServiceImpl implements BeerService {
             beerMap.put(beer1.getId(), beer1);
             beerMap.put(beer2.getId(), beer2);
             beerMap.put(beer3.getId(), beer3);
+
         }
 
     @Override
@@ -96,6 +97,12 @@ public class BeerServiceImpl implements BeerService {
         existing.setQuantityOnHand(beer.getQuantityOnHand());
 
         beerMap.put(existing.getId(), existing);
+    }
+
+    @Override
+    public void deleteBeer(UUID beerId) {
+
+        beerMap.remove(beerId);
     }
 
     @Override
