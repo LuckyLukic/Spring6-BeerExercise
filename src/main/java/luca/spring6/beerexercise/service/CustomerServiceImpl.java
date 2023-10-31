@@ -37,4 +37,19 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer getCustomerById(UUID customerId) {
         return customerMap.get(customerId);
     }
+
+    @Override
+    public Customer saveCustomer(Customer customer) {
+
+        Customer savedCustomer = Customer.builder()
+                .customerId(UUID.randomUUID())
+                .customerName("Luca")
+                .customerLastName("Iannice")
+                .address("Via Ciccio 123")
+                .build();
+
+        customerMap.put(savedCustomer.getCustomerId(), savedCustomer);
+
+        return savedCustomer;
+    }
 }
