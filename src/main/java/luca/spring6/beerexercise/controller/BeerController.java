@@ -22,10 +22,10 @@ public class BeerController {
     @Autowired
      BeerService beerService;
 
-    @GetMapping("{beerId}")
-    public Beer getBeerById(@PathVariable UUID id){
+    @GetMapping("/{beerId}")
+    public Beer getBeerById(@PathVariable UUID beerId){
 
-        return beerService.getBeerById(id);
+        return beerService.getBeerById(beerId);
     }
 
     @GetMapping("")
@@ -47,7 +47,7 @@ public class BeerController {
 
     }
 
-    @PutMapping("{beerId}")
+    @PutMapping("/{beerId}")
     public ResponseEntity<Beer> updateBeer (@PathVariable UUID beerId, @RequestBody Beer beer) {
 
        beerService.updateBeer(beerId, beer);
@@ -55,7 +55,7 @@ public class BeerController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping("{beerId}")
+    @DeleteMapping("/{beerId}")
     public ResponseEntity<Beer> deleteBeer (@PathVariable UUID beerId){
 
         beerService.deleteBeer(beerId);

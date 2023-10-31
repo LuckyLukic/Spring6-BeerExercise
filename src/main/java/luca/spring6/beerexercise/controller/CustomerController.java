@@ -24,7 +24,7 @@ public class CustomerController {
         return customerService.getCustomers();
     }
 
-    @GetMapping("{customerId}")
+    @GetMapping("/{customerId}")
     public Customer getCustomerById(@PathVariable UUID customerId) {
         return customerService.getCustomerById(customerId);
     }
@@ -39,14 +39,14 @@ public class CustomerController {
         return new ResponseEntity<> (headers, HttpStatus.CREATED);
     }
 
-    @PutMapping("{customerId}")
+    @PutMapping("/{customerId}")
     public ResponseEntity<Customer> updateCustomer (@PathVariable UUID customerId, @RequestBody Customer customer) {
 
         customerService.updateCustomer(customerId, customer);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping("{customerId}")
+    @DeleteMapping("/{customerId}")
     public ResponseEntity<Customer> deleteCustomer (@PathVariable UUID customerId) {
         customerService.deleteCustomer(customerId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
