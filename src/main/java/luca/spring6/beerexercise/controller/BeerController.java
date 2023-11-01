@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.function.ServerRequest;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -23,9 +25,9 @@ public class BeerController {
      BeerService beerService;
 
     @GetMapping("/{beerId}")
-    public Beer getBeerById(@PathVariable UUID beerId){
+    public Beer getBeerById(@PathVariable UUID beerId) throws NotFundException{
 
-        return beerService.getBeerById(beerId);
+        return Optional.ofNullable(beerService.getBeerById(beerId)).orElseThrow(NotFundException::new);
     }
 
     @GetMapping("")

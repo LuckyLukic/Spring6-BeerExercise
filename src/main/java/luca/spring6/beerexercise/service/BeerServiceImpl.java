@@ -1,6 +1,7 @@
 package luca.spring6.beerexercise.service;
 
 import lombok.extern.slf4j.Slf4j;
+import luca.spring6.beerexercise.controller.NotFundException;
 import luca.spring6.beerexercise.model.Beer;
 import luca.spring6.beerexercise.model.BeerStyle;
 import org.springframework.stereotype.Service;
@@ -62,7 +63,7 @@ public class BeerServiceImpl implements BeerService {
         }
 
     @Override
-    public List<Beer> getBeers(){
+    public List<Beer> getBeers() {
         return new ArrayList<>(beerMap.values());
     }
 
