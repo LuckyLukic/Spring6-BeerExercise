@@ -1,7 +1,7 @@
-package luca.spring6.beerexercise;
+package luca.spring6.beerexercise.controller;
 
 import luca.spring6.beerexercise.controller.CustomerController;
-import luca.spring6.beerexercise.model.Customer;
+import luca.spring6.beerexercise.model.CustomerDTO;
 import luca.spring6.beerexercise.service.CustomerService;
 import luca.spring6.beerexercise.service.CustomerServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -40,7 +40,7 @@ public class CustomerControllerTest {
     @Test
     void testGetCustomerById () throws Exception {
 
-        Customer testCustomer;
+        CustomerDTO testCustomer;
         testCustomer = customerServiceImpl.getCustomers().get(0);
 
         given(customerService.getCustomerById(testCustomer.getCustomerId())).willReturn(testCustomer);

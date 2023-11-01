@@ -1,17 +1,14 @@
 package luca.spring6.beerexercise.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import luca.spring6.beerexercise.model.Beer;
+import luca.spring6.beerexercise.model.BeerDTO;
 import luca.spring6.beerexercise.service.BeerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.function.ServerRequest;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -25,22 +22,22 @@ public class BeerController {
      BeerService beerService;
 
     @GetMapping("/{beerId}")
-    public Beer getBeerById(@PathVariable UUID beerId) throws NotFundException{
+    public BeerDTO getBeerById(@PathVariable UUID beerId) throws NotFundException{
 
         return Optional.ofNullable(beerService.getBeerById(beerId)).orElseThrow(NotFundException::new);
     }
 
     @GetMapping("")
-    public List<Beer> getBeers() {
+    public List<BeerDTO> getBeers() {
         log.info("Retrieving all beers");
 
         return beerService.getBeers();
     }
 
     @PostMapping("")
-    public ResponseEntity<Beer> saveBeer(@RequestBody Beer beer) {
+    public ResponseEntity<BeerDTO> saveBeer(@RequestBody BeerDTO beer) {
 
-        Beer savedBeer = beerService.saveBeer(beer);
+        BeerDTO savedBeer = beerService.saveBeer(beer);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "/api/v1/beer/" + savedBeer.getId().toString());
@@ -50,7 +47,7 @@ public class BeerController {
     }
 
     @PutMapping("/{beerId}")
-    public ResponseEntity<Beer> updateBeer (@PathVariable UUID beerId, @RequestBody Beer beer) {
+    public ResponseEntity<BeerDTO> updateBeer (@PathVariable UUID beerId, @RequestBody BeerDTO beer) {
 
        beerService.updateBeer(beerId, beer);
 
@@ -58,7 +55,7 @@ public class BeerController {
     }
 
     @DeleteMapping("/{beerId}")
-    public ResponseEntity<Beer> deleteBeer (@PathVariable UUID beerId){
+    public ResponseEntity<BeerDTO> deleteBeer (@PathVariable UUID beerId){
 
         beerService.deleteBeer(beerId);
 

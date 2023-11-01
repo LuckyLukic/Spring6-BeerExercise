@@ -1,19 +1,19 @@
 package luca.spring6.beerexercise.service;
 
-import luca.spring6.beerexercise.model.Beer;
+import luca.spring6.beerexercise.model.BeerDTO;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface BeerService {
 
-    Beer getBeerById (UUID id);
+    BeerDTO getBeerById (UUID id);
 
-    List<Beer> getBeers();
+    List<BeerDTO> getBeers();
 
-    Beer saveBeer(Beer beer);
+    BeerDTO saveBeer(BeerDTO beer);
 
-    void updateBeer(UUID beerId, Beer beer);
+    void updateBeer(UUID beerId, BeerDTO beer);
 
     void deleteBeer(UUID beerId);
 }

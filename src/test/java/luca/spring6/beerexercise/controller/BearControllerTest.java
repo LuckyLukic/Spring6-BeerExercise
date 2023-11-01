@@ -1,7 +1,7 @@
-package luca.spring6.beerexercise;
+package luca.spring6.beerexercise.controller;
 
 import luca.spring6.beerexercise.controller.BeerController;
-import luca.spring6.beerexercise.model.Beer;
+import luca.spring6.beerexercise.model.BeerDTO;
 import luca.spring6.beerexercise.service.BeerService;
 
 import luca.spring6.beerexercise.service.BeerServiceImpl;
@@ -43,7 +43,7 @@ public class BearControllerTest {
     @Test
     void getBeerById() throws Exception {
 
-        Beer testBeer;
+        BeerDTO testBeer;
         testBeer = beerServiceImpl.getBeers().get(0);
 
         //returning a Json so that I can test whatever I want with JsonPath

@@ -1,7 +1,7 @@
 package luca.spring6.beerexercise.service;
 
 import lombok.extern.slf4j.Slf4j;
-import luca.spring6.beerexercise.model.Customer;
+import luca.spring6.beerexercise.model.CustomerDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -10,19 +10,19 @@ import java.util.*;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-    private Map<UUID, Customer> customerMap;
+    private Map<UUID, CustomerDTO> customerMap;
 
     public CustomerServiceImpl () {
         this.customerMap = new HashMap<>();
 
-        Customer customer1 = Customer.builder()
+        CustomerDTO customer1 = CustomerDTO.builder()
                 .customerId(UUID.randomUUID())
                 .customerName("Luca")
                 .customerLastName("Iannice")
                 .address("Via Ciccio 123")
                 .build();
 
-        Customer customer2 = Customer.builder()
+        CustomerDTO customer2 = CustomerDTO.builder()
                 .customerId(UUID.randomUUID())
                 .customerName("Ariana")
                 .customerLastName("Kirsch")
@@ -33,19 +33,19 @@ public class CustomerServiceImpl implements CustomerService {
         customerMap.put(customer2.getCustomerId(), customer2);
     }
     @Override
-    public List<Customer> getCustomers() {
+    public List<CustomerDTO> getCustomers() {
         return new ArrayList<>(customerMap.values());
     }
 
     @Override
-    public Customer getCustomerById(UUID customerId) {
+    public CustomerDTO getCustomerById(UUID customerId) {
         return customerMap.get(customerId);
     }
 
     @Override
-    public Customer saveCustomer(Customer customer) {
+    public CustomerDTO saveCustomer(CustomerDTO customer) {
 
-        Customer savedCustomer = Customer.builder()
+        CustomerDTO savedCustomer = CustomerDTO.builder()
                 .customerId(UUID.randomUUID())
                 .customerName("Luca")
                 .customerLastName("Iannice")
@@ -58,9 +58,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void updateCustomer(UUID customerId, Customer customer) {
+    public void updateCustomer(UUID customerId, CustomerDTO customer) {
 
-        Customer existing = customerMap.get(customerId);
+        CustomerDTO existing = customerMap.get(customerId);
         existing.setCustomerName(customer.getCustomerName());
         existing.setCustomerLastName(customer.getCustomerLastName());
         existing.setAddress(customer.getAddress());
