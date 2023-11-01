@@ -17,7 +17,6 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import static org.hamcrest.core.Is.is;
 
 @WebMvcTest(BeerController.class)
 public class BearControllerTest {
