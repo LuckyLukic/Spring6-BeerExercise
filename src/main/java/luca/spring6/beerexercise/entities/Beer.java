@@ -1,9 +1,6 @@
 package luca.spring6.beerexercise.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Version;
+import jakarta.persistence.*;
 import lombok.*;
 import luca.spring6.beerexercise.model.BeerStyle;
 
@@ -20,6 +17,8 @@ import java.util.UUID;
 public class Beer {
 
     @Id
+    @GeneratedValue
+    @Column(length=36, columnDefinition = "varchar", updatable = false, nullable = false)
     private UUID id;
     @Version
     private Integer version;
