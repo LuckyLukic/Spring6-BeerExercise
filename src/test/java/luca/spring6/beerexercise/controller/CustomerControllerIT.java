@@ -25,7 +25,7 @@ class CustomerControllerIT {
     CustomerRepository customerRepository;
 
     @Test
-    void TestCustomerUdNotFOund() {
+    void TestCustomerUdNotFound() {
         assertThrows(NotFundException.class, () -> {
             customerController.getCustomerById((UUID.randomUUID()));
         });
