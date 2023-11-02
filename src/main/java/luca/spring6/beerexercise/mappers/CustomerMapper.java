@@ -1,8 +1,5 @@
 package luca.spring6.beerexercise.mappers;
-
-import luca.spring6.beerexercise.entities.Beer;
 import luca.spring6.beerexercise.entities.Customer;
-import luca.spring6.beerexercise.model.BeerDTO;
 import luca.spring6.beerexercise.model.CustomerDTO;
 import org.mapstruct.Mapper;
 
