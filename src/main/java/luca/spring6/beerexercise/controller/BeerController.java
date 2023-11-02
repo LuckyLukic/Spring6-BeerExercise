@@ -21,24 +21,19 @@ public class BeerController {
     @Autowired
      BeerService beerService;
 
-    @GetMapping("/{beerId}")
-    public BeerDTO getBeerById(@PathVariable UUID beerId) {
-
-        return beerService.getBeerById(beerId).orElseThrow(NotFundException::new);
+    @GetMapping("")
+    public List<BeerDTO> getBeers() {return beerService.getBeers();
     }
 
-    @GetMapping("")
-    public List<BeerDTO> getBeers() {
-        log.info("Retrieving all beers");
-
-        return beerService.getBeers();
+    @GetMapping("/{beerId}")
+    public BeerDTO getBeerById(@PathVariable UUID beerId) {
+        return beerService.getBeerById(beerId).orElseThrow(NotFundException::new);
     }
 
     @PostMapping("")
     public ResponseEntity<BeerDTO> saveBeer(@RequestBody BeerDTO beer) {
 
         BeerDTO savedBeer = beerService.saveBeer(beer);
-
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "/api/v1/beer/" + savedBeer.getId().toString());
 

@@ -23,9 +23,10 @@ public class CustomerController {
         return customerService.getCustomers();
     }
 
+
     @GetMapping("/{customerId}")
     public CustomerDTO getCustomerById(@PathVariable UUID customerId) {
-        return customerService.getCustomerById(customerId);
+        return customerService.getCustomerById(customerId).orElseThrow(NotFundException::new);
     }
 
     @PostMapping("")

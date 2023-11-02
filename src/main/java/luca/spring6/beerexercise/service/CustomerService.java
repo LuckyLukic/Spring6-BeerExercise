@@ -3,13 +3,14 @@ package luca.spring6.beerexercise.service;
 import luca.spring6.beerexercise.model.CustomerDTO;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface CustomerService {
 
-     List<CustomerDTO> getCustomers();
+    List<CustomerDTO> getCustomers();
 
-    CustomerDTO getCustomerById(UUID customerId);
+    Optional<CustomerDTO> getCustomerById(UUID customerId);
 
     CustomerDTO saveCustomer(CustomerDTO customer);
 
