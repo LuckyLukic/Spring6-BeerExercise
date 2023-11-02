@@ -22,9 +22,9 @@ public class BeerController {
      BeerService beerService;
 
     @GetMapping("/{beerId}")
-    public BeerDTO getBeerById(@PathVariable UUID beerId) throws NotFundException{
+    public BeerDTO getBeerById(@PathVariable UUID beerId) {
 
-        return Optional.ofNullable(beerService.getBeerById(beerId)).orElseThrow(NotFundException::new);
+        return beerService.getBeerById(beerId).orElseThrow(NotFundException::new);
     }
 
     @GetMapping("")
