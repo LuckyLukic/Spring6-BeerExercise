@@ -44,7 +44,9 @@ public class BeerController {
     @PutMapping("/{beerId}")
     public ResponseEntity<BeerDTO> updateBeer (@PathVariable UUID beerId, @RequestBody BeerDTO beer) {
 
-       beerService.updateBeer(beerId, beer);
+      if(beerService.updateBeer(beerId, beer).isEmpty()) {
+          throw new NotFundException();
+        }
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -52,7 +54,9 @@ public class BeerController {
     @DeleteMapping("/{beerId}")
     public ResponseEntity<BeerDTO> deleteBeer (@PathVariable UUID beerId){
 
-        beerService.deleteBeer(beerId);
+       if (! beerService.deleteBeer(beerId)) {
+           throw new NotFundException();
+       };
 
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 

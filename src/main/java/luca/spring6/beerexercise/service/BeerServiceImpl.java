@@ -3,6 +3,8 @@ package luca.spring6.beerexercise.service;
 import lombok.extern.slf4j.Slf4j;
 import luca.spring6.beerexercise.model.BeerDTO;
 import luca.spring6.beerexercise.model.BeerStyle;
+import luca.spring6.beerexercise.repositories.BeerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -12,6 +14,9 @@ import java.util.*;
 @Slf4j
 @Service
 public class BeerServiceImpl implements BeerService {
+
+    @Autowired
+    BeerRepository beerRepository;
 
 
     private Map<UUID, BeerDTO> beerMap;
@@ -87,7 +92,7 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
-    public void updateBeer(UUID beerId, BeerDTO beer) {
+    public Optional<BeerDTO> updateBeer(UUID beerId, BeerDTO beer) {
 
         BeerDTO existing = beerMap.get(beerId);
 
@@ -96,13 +101,17 @@ public class BeerServiceImpl implements BeerService {
         existing.setUpc(beer.getUpc());
         existing.setQuantityOnHand(beer.getQuantityOnHand());
 
-        beerMap.put(existing.getId(), existing);
+        return Optional.of(existing);
+
+
     }
 
     @Override
-    public void deleteBeer(UUID beerId) {
+    public Boolean deleteBeer(UUID beerId) {
 
         beerMap.remove(beerId);
+
+        return true;
     }
 
     @Override
