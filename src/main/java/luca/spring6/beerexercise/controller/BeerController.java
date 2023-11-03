@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -54,12 +53,11 @@ public class BeerController {
     @DeleteMapping("/{beerId}")
     public ResponseEntity<BeerDTO> deleteBeer (@PathVariable UUID beerId){
 
-       if (! beerService.deleteBeer(beerId)) {
+       if (!beerService.deleteBeer(beerId)) {
            throw new NotFundException();
-       };
+       }
 
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
     }
-
 }

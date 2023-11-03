@@ -1,6 +1,7 @@
 package luca.spring6.beerexercise.service;
 
 import luca.spring6.beerexercise.mappers.CustomerMapper;
+import luca.spring6.beerexercise.model.BeerDTO;
 import luca.spring6.beerexercise.model.CustomerDTO;
 import luca.spring6.beerexercise.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 
@@ -40,16 +42,35 @@ public class CustomerServiceJPA implements CustomerService {
 
     @Override
     public CustomerDTO saveCustomer(CustomerDTO customer) {
-        return null;
+
+        return customerMapper.customerToCustomerDto(customerRepository.save(customerMapper.customerDtoToCustomer(customer)));
     }
 
     @Override
-    public void updateCustomer(UUID customerId, CustomerDTO customer) {
+    public Optional<CustomerDTO> updateCustomer(UUID customerId, CustomerDTO customer) {
 
-    }
+    AtomicReference<Optional<CustomerDTO>> atomicReference = new AtomicReference<>();
+        customerRepository.findById(customerId).ifPresentOrElse(foundCustomer -> {
+        foundCustomer.setCustomerName(customer.getCustomerName());
+        foundCustomer.setCustomerLastName(customer.getCustomerLastName());
+        foundCustomer.setAddress(customer.getAddress());
+
+        atomicReference.set(Optional.of(customerMapper
+                .customerToCustomerDto(customerRepository.save(foundCustomer))));
+    }, () -> {
+        atomicReference.set(Optional.empty());
+    });
+
+        return atomicReference.get();
+}
 
     @Override
-    public void deleteCustomer(UUID customerId) {
+    public Boolean deleteCustomer(UUID customerId) {
 
+        if (customerRepository.existsById(customerId)) {
+            customerRepository.deleteById(customerId);
+            return true;
+        }
+        return false;
     }
 }

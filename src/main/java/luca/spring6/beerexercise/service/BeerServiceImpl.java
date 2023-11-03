@@ -72,6 +72,13 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
+    public Optional<BeerDTO> getBeerById(UUID id) {
+
+        log.debug("Get Beer by Id - in service. Id: " + id.toString());
+
+        return Optional.ofNullable(beerMap.get(id));
+    }
+    @Override
     public BeerDTO saveBeer(BeerDTO beer) {
 
         BeerDTO savedBeer = BeerDTO.builder()
@@ -102,8 +109,6 @@ public class BeerServiceImpl implements BeerService {
         existing.setQuantityOnHand(beer.getQuantityOnHand());
 
         return Optional.of(existing);
-
-
     }
 
     @Override
@@ -114,11 +119,4 @@ public class BeerServiceImpl implements BeerService {
         return true;
     }
 
-    @Override
-    public Optional<BeerDTO> getBeerById(UUID id) {
-
-        log.debug("Get Beer by Id - in service. Id: " + id.toString());
-
-        return Optional.ofNullable(beerMap.get(id));
-    }
 }

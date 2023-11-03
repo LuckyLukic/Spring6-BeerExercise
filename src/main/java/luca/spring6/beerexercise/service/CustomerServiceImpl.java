@@ -2,6 +2,8 @@ package luca.spring6.beerexercise.service;
 
 import lombok.extern.slf4j.Slf4j;
 import luca.spring6.beerexercise.model.CustomerDTO;
+import luca.spring6.beerexercise.repositories.CustomerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -10,6 +12,8 @@ import java.util.*;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
+    @Autowired
+    CustomerRepository customerRepository;
     private Map<UUID, CustomerDTO> customerMap;
 
     public CustomerServiceImpl () {
@@ -59,19 +63,22 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void updateCustomer(UUID customerId, CustomerDTO customer) {
+    public Optional<CustomerDTO> updateCustomer(UUID customerId, CustomerDTO customer) {
 
         CustomerDTO existing = customerMap.get(customerId);
+
         existing.setCustomerName(customer.getCustomerName());
         existing.setCustomerLastName(customer.getCustomerLastName());
         existing.setAddress(customer.getAddress());
 
-        customerMap.put(existing.getCustomerId(), existing);
+        return Optional.of(existing);
     }
 
     @Override
-    public void deleteCustomer(UUID customerId) {
+    public Boolean deleteCustomer(UUID customerId) {
 
         customerMap.remove(customerId);
+
+        return true;
     }
 }
