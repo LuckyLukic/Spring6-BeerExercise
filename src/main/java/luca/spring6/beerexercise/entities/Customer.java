@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.util.UUID;
 
@@ -18,7 +20,8 @@ public class Customer {
 
     @Id
     @GeneratedValue
-    @Column(length=36, columnDefinition = "varchar", updatable = false, nullable = false)
+    @JdbcTypeCode(SqlTypes.CHAR)// specifically tells hibernate to convert UUID into a string
+    @Column(length=36, columnDefinition = "varchar(36)", updatable = false, nullable = false)
     private UUID customerId;
 
     @NotNull
