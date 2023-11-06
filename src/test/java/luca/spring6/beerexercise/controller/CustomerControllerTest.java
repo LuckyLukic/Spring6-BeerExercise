@@ -15,6 +15,8 @@ import static org.hamcrest.core.Is.is;
 import static org.mockito.BDDMockito.given;
 import org.springframework.http.MediaType;
 
+import java.util.Optional;
+
 @WebMvcTest(CustomerController.class)
 public class CustomerControllerTest {
 
@@ -43,7 +45,7 @@ public class CustomerControllerTest {
         CustomerDTO testCustomer;
         testCustomer = customerServiceImpl.getCustomers().get(0);
 
-        given(customerService.getCustomerById(testCustomer.getCustomerId())).willReturn(testCustomer);
+        given(customerService.getCustomerById(testCustomer.getCustomerId())).willReturn(Optional.of(testCustomer));
 
         mockMvc.perform(get("/api/v1/customer/" + testCustomer.getCustomerId())
                 .accept(MediaType.APPLICATION_JSON))
